@@ -22,7 +22,15 @@ const friends = [
 server.on('request', (req, res) => {
   const items = req.url.split('/');
 
-  if (items[1] === 'friends') {
+  if (req.method === 'POST' && items[1] === 'friends') {
+    req.on('data', (data) => {
+      const friendStr = data.toString();
+      console.log('Request:', friendStr);
+      const friend = JSON.parse(friendStr);
+      friends.push(friend); 
+    });
+    req.pipe(res);
+  } else if (req.method === 'GET' && items[1] === 'friends') {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'application/json');
 
@@ -32,7 +40,7 @@ server.on('request', (req, res) => {
     }
 
     res.end(JSON.stringify(data));
-  } else if (items[1] === 'messages') {
+  } else if (req.method === 'GET' && items[1] === 'messages') {
     res.setHeader('Content-Type', 'text/html');
     res.write('<html>');
     res.write('<body>');
