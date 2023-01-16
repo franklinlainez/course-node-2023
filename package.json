@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/franklinlainez/course-node-planets/issues"
   },
-  "homepage": "https://github.com/franklinlainez/course-node-planets#readme"
+  "homepage": "https://github.com/franklinlainez/course-node-planets#readme",
+  "dependencies": {
+    "csv-parse": "^5.3.3"
+  }
 }
